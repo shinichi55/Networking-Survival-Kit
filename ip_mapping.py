@@ -16,6 +16,11 @@ parser.add_argument("domain", help="Hostname of IP address")
 
 args = parser.parse_args()
 
-domain = args.domain
-ip = socket.gethostbyname( domain )
-print( "The IP address of target is: {}".format( ip ) )
+try:
+    socket.gethostbyname( args.domain )
+
+except OSError:
+    print( "Input valid domain name")
+
+else:
+    print( "The IP address of target is: {}".format( socket.gethostbyname( args.domain ) ) )
