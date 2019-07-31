@@ -16,6 +16,11 @@ parser.add_argument("ip", help="IP address of Hostname.")
 
 args = parser.parse_args()
 
-ip = args.ip
-hostname = socket.gethostbyaddr( ip )
-print( "The hostname is: {}".format( hostname[0] ) )
+try:
+    socket.gethostbyaddr( args.ip )
+
+except OSError:
+    print( "Input valid IP address" )
+
+else:
+    print( "The hostname is: {}".format( socket.gethostbyaddr( args.ip )[0] ) )
