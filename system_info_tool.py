@@ -15,7 +15,6 @@ parser = argparse.ArgumentParser(
 parser.add_argument("ip", help="Hostname IP address.")
 
 args = parser.parse_args()
-print( args )
 
 ip = args.ip
 hostname = socket.gethostbyaddr( ip )
