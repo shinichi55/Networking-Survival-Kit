@@ -9,7 +9,7 @@ import argparse
 
 parser = argparse.ArgumentParser(
     prog="System Info Tool",
-    description="Will print hostname"
+    description="This tool will grab the hostname of the target machine."
 )
 
 parser.add_argument("ip", help="Hostname IP address.")
