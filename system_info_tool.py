@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(
     description="This tool will grab the hostname of the target machine."
 )
 
-parser.add_argument("ip", help="Hostname IP address.")
+parser.add_argument("ip", help="IP address of Hostname.")
 
 args = parser.parse_args()
 
