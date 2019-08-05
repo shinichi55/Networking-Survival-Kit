@@ -8,24 +8,28 @@ import socket
 import argparse
 import urllib.request
 
-parser = argparse.ArgumentParser (
-    prog="Client Browser",
-    description="This tool will act as your client browser to pull html from any domain."
-)
+def client_browser():
+    parser = argparse.ArgumentParser (
+        prog="Client Browser",
+        description="This tool will act as your client browser to pull html from any domain."
+    )
 
-parser.add_argument("domain", help="Domain to pull html info from")
+    parser.add_argument("domain", help="Domain to pull html info from")
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-try:
-    socket.gethostbyname( args.domain )
+    try:
+        socket.gethostbyname( args.domain )
 
-except OSError:
-    print( "Please check domain name...")
+    except OSError:
+        print( "Please check domain name...")
 
-else:
-    url = urllib.request.urlopen( "http://" + args.domain )
-    print( "Url: \n {}".format( url.geturl() ) )
-    print( "Status code: \n {}".format( url.getcode() ) )
-    print( "Header/Server info: \n {}".format( url.info() ) )
-    print( "Html: \n {}".format( url.read() ) )
+    else:
+        url = urllib.request.urlopen( "http://" + args.domain )
+        print( "Url: \n {}".format( url.geturl() ) )
+        print( "Status code: \n {}".format( url.getcode() ) )
+        print( "Header/Server info: \n {}".format( url.info() ) )
+        print( "Html: \n {}".format( url.read() ) )
+
+if __name__ == "__main__":
+    client_browser()
