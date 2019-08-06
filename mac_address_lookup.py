@@ -11,16 +11,20 @@ import urllib.request
 import json
 import codecs
 
-parser = argparse.ArgumentParser (
-    prog="Mac Address Lookup",
-    description="This tool will return information on mac addresses."
-)
+def mac_address_lookup():
+    parser = argparse.ArgumentParser (
+        prog="Mac Address Lookup",
+        description="This tool will return information on mac addresses."
+    )
 
-parser.add_argument("mac", help="Mac address to lookup")
+    parser.add_argument("mac", help="Mac address to lookup")
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-webUrL = urllib.request.urlopen( "http://macvendors.co/api/" + args.mac )
-json_dict = json.load( webUrL )
+    webUrL = urllib.request.urlopen( "http://macvendors.co/api/" + args.mac )
+    json_dict = json.load( webUrL )
 
-print( json_dict["result"]["company"] + ", " + json_dict["result"]["address"] )
+    return( ( "Company name: {}, Address: {}\n".format( json_dict["result"]["company"], json_dict["result"]["address"] ) ) )
+
+if __name__ == "__main__":
+    mac_address_lookup()
