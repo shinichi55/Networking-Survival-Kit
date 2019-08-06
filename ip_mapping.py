@@ -21,10 +21,10 @@ def ip_mapping():
         socket.gethostbyname( args.domain )
 
     except OSError:
-        print( "Input valid domain name")
+        return( "Input valid domain name\n" )
 
     else:
-        print( "The IP address of target is: {}".format( socket.gethostbyname( args.domain ) ) )
+        return( "The IP address of target is: {}\n".format( socket.gethostbyname( args.domain ) ) )
 
 if __name__ == "__main__":
     ip_mapping()
