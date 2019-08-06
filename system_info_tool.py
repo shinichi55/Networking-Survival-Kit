@@ -21,10 +21,10 @@ def system_info_tool():
         socket.gethostbyaddr( args.ip )
 
     except OSError:
-        print( "Input valid IP address" )
+        return( "Input valid IP address\n" )
 
     else:
-        print( "The hostname is: {}".format( socket.gethostbyaddr( args.ip )[0] ) )
+        return( "The hostname is: {}\n".format( socket.gethostbyaddr( args.ip )[0] ) )
 
 if __name__ == "__main__":
     system_info_tool()
