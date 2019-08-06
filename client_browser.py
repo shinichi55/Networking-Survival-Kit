@@ -22,14 +22,11 @@ def client_browser():
         socket.gethostbyname( args.domain )
 
     except OSError:
-        print( "Please check domain name...")
+        return( "Please check domain name...\n")
 
     else:
         url = urllib.request.urlopen( "http://" + args.domain )
-        print( "Url: \n {}".format( url.geturl() ) )
-        print( "Status code: \n {}".format( url.getcode() ) )
-        print( "Header/Server info: \n {}".format( url.info() ) )
-        print( "Html: \n {}".format( url.read() ) )
+        return( "Url: \n {}\n".format( url.geturl() ) + "Status code: \n {}\n".format( url.getcode() ) + "Header/Server info: \n {}\n".format( url.info() ) + "Html: \n {}\n".format( url.read() ) )
 
 if __name__ == "__main__":
     client_browser()
