@@ -6,23 +6,30 @@
 
 import socket
 import argparse
+import data_collector
+
+parser = argparse.ArgumentParser(
+    prog="System Info Tool",
+    description="This tool will grab the hostname of the target machine."
+)
+
+parser.add_argument("target", help="target machine")
+parser.add_argument("-C", action="store_true", help="capture output to file")
+
+args = parser.parse_args()
 
 def system_info_tool():
-    parser = argparse.ArgumentParser(
-        prog="System Info Tool",
-        description="This tool will grab the hostname of the target machine."
-    )
-
-    parser.add_argument("ip", help="IP address of Hostname.")
-
-    args = parser.parse_args()
-
     try:
-        socket.gethostbyaddr( args.ip )
-        return( "The hostname is: {}\n".format( socket.gethostbyaddr( args.ip )[0] ) )
+        if args.C == True:
+            socket.gethostbyaddr( args.target )
+            print( "The hostname is: {}".format( socket.gethostbyaddr( args.target )[0] ) )
+            return( data_collector.data_collector( "The hostname is: {}\n".format( socket.gethostbyaddr( args.target )[0] ) ) )
+        else:
+            socket.gethostbyaddr( args.target )
+            print( "The hostname is: {}".format( socket.gethostbyaddr( args.target )[0] ) )
 
-    except OSError:
-        return( "Input valid IP address\n" )
+    except socket.gaierror:
+        print( "Check input information..." )
 
 if __name__ == "__main__":
     system_info_tool()
