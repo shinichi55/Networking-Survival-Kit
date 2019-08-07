@@ -6,25 +6,30 @@
 
 import socket
 import argparse
+import data_collector
+
+parser = argparse.ArgumentParser (
+    prog="IP Mapping",
+    description="This tool will return the corresponding IP address of any domain entered."
+)
+
+parser.add_argument("domain", help="domain name of ip address")
+parser.add_argument("-C", action="store_true", help="capture output to file")
+
+args = parser.parse_args()
 
 def ip_mapping():
-    parser = argparse.ArgumentParser (
-        prog="IP Mapping",
-        description="This tool will return the corresponding IP address of any domain entered."
-    )
-
-    parser.add_argument("domain", help="Hostname of IP address")
-
-    args = parser.parse_args()
-
     try:
-        socket.gethostbyname( args.domain )
+        if args.C == True:
+            socket.gethostbyname( args.domain )
+            print( "The IP address of target is: {}".format( socket.gethostbyname( args.domain ) ) )
+            return( data_collector.data_collector( "The IP address of target is: {}\n".format( socket.gethostbyname( args.domain ) ) ) )
+        else:
+            socket.gethostbyname( args.domain )
+            print( "The IP address of target is: {}".format( socket.gethostbyname( args.domain ) ) )
 
-    except OSError:
-        return( "Input valid domain name\n" )
-
-    else:
-        return( "The IP address of target is: {}\n".format( socket.gethostbyname( args.domain ) ) )
+    except socket.gaierror:
+        print( "Check domain name input..." )
 
 if __name__ == "__main__":
     ip_mapping()
