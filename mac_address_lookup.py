@@ -9,22 +9,26 @@
 import argparse
 import urllib.request
 import json
-import codecs
+import data_collector
+
+parser = argparse.ArgumentParser (
+    prog="Mac Address Lookup",
+    description="This tool will return information on mac addresses."
+)
+
+parser.add_argument("mac", help="mac address to lookup")
+parser.add_argument("-C", action="store_true", help="capture output to file")
+
+args = parser.parse_args()
 
 def mac_address_lookup():
-    parser = argparse.ArgumentParser (
-        prog="Mac Address Lookup",
-        description="This tool will return information on mac addresses."
-    )
-
-    parser.add_argument("mac", help="Mac address to lookup")
-
-    args = parser.parse_args()
-
     webUrL = urllib.request.urlopen( "http://macvendors.co/api/" + args.mac )
     json_dict = json.load( webUrL )
-
-    return( ( "Company name: {}, Address: {}\n".format( json_dict["result"]["company"], json_dict["result"]["address"] ) ) )
+    if args.C == True:
+        print( ( "Company name: {}\nAddress: {}".format( json_dict["result"]["company"], json_dict["result"]["address"] ) ) )
+        return( data_collector.data_collector( "Company name: {}\nAddress: {}\n".format ( json_dict["result"]["company"], json_dict["result"]["address"] ) ) )
+    else:
+        print( ( "Company name: {}\nAddress: {}".format( json_dict["result"]["company"], json_dict["result"]["address"] ) ) )
 
 if __name__ == "__main__":
     mac_address_lookup()
