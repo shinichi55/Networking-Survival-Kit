@@ -7,26 +7,32 @@
 import socket
 import argparse
 import urllib.request
+import data_collector
+
+parser = argparse.ArgumentParser (
+    prog="Client Browser",
+    description="This tool will act as your client browser to pull html from any domain."
+)
+
+parser.add_argument("domain", help="domain to pull html info from")
+parser.add_argument("-C", action="store_true", help="capture output to file")
+
+args = parser.parse_args()
 
 def client_browser():
-    parser = argparse.ArgumentParser (
-        prog="Client Browser",
-        description="This tool will act as your client browser to pull html from any domain."
-    )
-
-    parser.add_argument("domain", help="Domain to pull html info from")
-
-    args = parser.parse_args()
-
     try:
-        socket.gethostbyname( args.domain )
+        if args.C == True:
+            socket.gethostbyname( args.domain )
+            url = urllib.request.urlopen( "http://" + args.domain )
+            print( "Url:\n{}\nStatus code:\n{}\nHeader/Server info:\n{}Html:\n{}".format( url.geturl(), url.getcode(), url.info(), url.read().decode("utf-8") ) )
+            return( data_collector.data_collector( "Url:\n{}\nStatus code:\n{}\nHeader/Server info:\n{}Html:\n{}\n".format( url.geturl(), url.getcode(), url.info(), url.read().decode("utf-8") ) ) )
+        else:
+            socket.gethostbyname( args.domain )
+            url = urllib.request.urlopen( "http://" + args.domain )
+            print( "Url:\n{}\nStatus code:\n{}\nHeader/Server info:\n{}Html:\n{}".format( url.geturl(), url.getcode(), url.info(), url.read().decode("utf-8") ) )
 
-    except OSError:
-        return( "Please check domain name...\n")
-
-    else:
-        url = urllib.request.urlopen( "http://" + args.domain )
-        return( "Url: \n {}\n".format( url.geturl() ) + "Status code: \n {}\n".format( url.getcode() ) + "Header/Server info: \n {}\n".format( url.info() ) + "Html: \n {}\n".format( url.read() ) )
+    except socket.gaierror:
+        print( "Please check domain name...")
 
 if __name__ == "__main__":
     client_browser()
