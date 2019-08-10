@@ -20,12 +20,11 @@ args = parser.parse_args()
 
 def system_info_tool():
     try:
+        socket.gethostbyaddr( args.target )
         if args.C == True:
-            socket.gethostbyaddr( args.target )
             print( "The hostname is: {}".format( socket.gethostbyaddr( args.target )[0] ) )
             return( data_collector.data_collector( "The hostname is: {}\n".format( socket.gethostbyaddr( args.target )[0] ) ) )
         else:
-            socket.gethostbyaddr( args.target )
             print( "The hostname is: {}".format( socket.gethostbyaddr( args.target )[0] ) )
 
     except socket.gaierror:
