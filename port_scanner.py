@@ -23,9 +23,9 @@ args = parser.parse_args()
 
 def port_scanner():
     try:
-        file = open( "port_scanner.txt", "w" )
+        socket.gethostbyname( args.ip )
         if args.C == True:
-            socket.gethostbyname( args.ip )
+            file = open( "port_scanner.txt", "w" )
             if args.port2 != None:
                 begin = int( args.port1 )
                 end = int( args.port2 )
@@ -54,8 +54,9 @@ def port_scanner():
                     file.write( "Port {}: Closed\n".format( args.port1 ) )
                     return( data_collector.data_collector( "Port {}: Closed\n".format( args.port1 ) ) )
                 sock.close()
+            file.close()
         else:
-            socket.gethostbyname( args.ip )
+            file = open( "port_scanner.txt", "w" )
             if args.port2 != None:
                 x = int( args.port1 )
                 y = int( args.port2 )
@@ -80,7 +81,7 @@ def port_scanner():
                     print( "Port {}: Closed".format( args.port1 ) )
                     file.write( "Port {}: Closed\n".format( args.port1 ) )
                 sock.close()
-        file.close()
+            file.close()
 
     except socket.gaierror:
         print( "Check input information..." )
