@@ -21,13 +21,12 @@ args = parser.parse_args()
 
 def client_browser():
     try:
+        socket.gethostbyname( args.domain )
         if args.C == True:
-            socket.gethostbyname( args.domain )
             url = urllib.request.urlopen( "http://" + args.domain )
             print( "Url:\n{}\nStatus code:\n{}\nHeader/Server info:\n{}Html:\n{}".format( url.geturl(), url.getcode(), url.info(), url.read().decode("utf-8") ) )
             return( data_collector.data_collector( "Url:\n{}\nStatus code:\n{}\nHeader/Server info:\n{}Html:\n{}\n".format( url.geturl(), url.getcode(), url.info(), url.read().decode("utf-8") ) ) )
         else:
-            socket.gethostbyname( args.domain )
             url = urllib.request.urlopen( "http://" + args.domain )
             print( "Url:\n{}\nStatus code:\n{}\nHeader/Server info:\n{}Html:\n{}".format( url.geturl(), url.getcode(), url.info(), url.read().decode("utf-8") ) )
 
