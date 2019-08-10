@@ -20,12 +20,11 @@ args = parser.parse_args()
 
 def ip_mapping():
     try:
+        socket.gethostbyname( args.domain )
         if args.C == True:
-            socket.gethostbyname( args.domain )
             print( "The IP address of target is: {}".format( socket.gethostbyname( args.domain ) ) )
             return( data_collector.data_collector( "The IP address of target is: {}\n".format( socket.gethostbyname( args.domain ) ) ) )
         else:
-            socket.gethostbyname( args.domain )
             print( "The IP address of target is: {}".format( socket.gethostbyname( args.domain ) ) )
 
     except socket.gaierror:
